@@ -3,87 +3,87 @@ package com.crud.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.crud.bean.MemberVO;
-import com.crud.common.JDBCUtil;
+import com.crud.member.JDBCUtil;
 
-public class BoardDAO {
-	
-	Connection conn = null;
-	PreparedStatement stmt = null;
-	ResultSet rs = null;
+public class MemberDAO {
+	private Connection conn = null;
+	private PreparedStatement stmt = null;
+	private ResultSet rs = null;
 
-	private final String BOARD_INSERT = "insert into BOARD (title, writer, content) values (?,?,?)";
-	private final String BOARD_UPDATE = "update BOARD set title=?, writer=?, content=? where seq=?";
-	private final String BOARD_DELETE = "delete from BOARD  where seq=?";
-	private final String BOARD_GET = "select * from BOARD  where seq=?";
-	private final String BOARD_LIST = "select * from BOARD order by seq desc";
+	private final String M_INSERT = "insert into member(userid, password, username, email, photo, detail) values (?,sha1(?),?,?,?,?)";
+	private final String M_UPDATE = "update member set username=?, email=?, photo=?, detail=? where sid=?";
+	private final String M_DELETE = "delete from member where sid=?";
+	private final String M_GET = "select * from member where sid=?";
+	private final String M_LIST = "select * from member order by regdate desc";
 
-	public int insertBoard(MemberVO vo) {
-		System.out.println("===> JDBC로 insertBoard() 기능 처리");
+
+
+	public int insertMember(MemberVO data) {
+		int result=0;
+		conn=JDBCUtil.getConnection();
 		try {
-			conn = JDBCUtil.getConnection();
-			stmt = conn.prepareStatement(BOARD_INSERT);
-			stmt.setString(1, vo.getTitle());
-			stmt.setString(2, vo.getWriter());
-			stmt.setString(3, vo.getContent());
-			stmt.executeUpdate();
-			return 1;
+			stmt=conn.prepareStatement(M_INSERT);
+			stmt.setString(1, data.getUserid());
+			stmt.setString(2, data.getPassword());
+			stmt.setString(3, data.getUsername());
+			stmt.setString(4, data.getEmail());
+			stmt.setString(5, data.getPhoto());
+			stmt.setString(6, data.getDetail());
+			result=stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return result;
 	}
 
 	// 글 삭제
-	public void deleteBoard(MemberVO vo) {
-		System.out.println("===> JDBC로 deleteBoard() 기능 처리");
+	public void deleteMember(int sid) {
 		try {
 			conn = JDBCUtil.getConnection();
-			stmt = conn.prepareStatement(BOARD_DELETE);
-			stmt.setInt(1, vo.getSeq());
+			stmt = conn.prepareStatement(M_DELETE);
+			stmt.setInt(1, sid);
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	public int updateBoard(MemberVO vo) {
-		System.out.println("===> JDBC로 updateBoard() 기능 처리");
+	public int updateMember(MemberVO vo) {
+		int result=0;
+		conn=JDBCUtil.getConnection();
 		try {
-			conn = JDBCUtil.getConnection();
-			stmt = conn.prepareStatement(BOARD_UPDATE);
-			stmt.setString(1, vo.getTitle());
-			stmt.setString(2, vo.getWriter());
-			stmt.setString(3, vo.getContent());
-			stmt.setInt(4, vo.getSeq());
-			
-			
-			System.out.println(vo.getTitle() + "-" + vo.getWriter() + "-" + vo.getContent() + "-" + vo.getSeq());
-			stmt.executeUpdate();
-			return 1;
-			
+			stmt = conn.prepareStatement(M_UPDATE);
+			stmt.setString(1, vo.getUsername());
+			stmt.setString(2, vo.getEmail());
+			stmt.setString(3, vo.getPhoto());
+			stmt.setString(4, vo.getDetail());
+			result=stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return 0;
+		return result;
 	}	
 	
-	public MemberVO getBoard(int seq) {
-		MemberVO one = new MemberVO();
-		System.out.println("===> JDBC로 getBoard() 기능 처리");
+	public MemberVO getMember(int sid) {
+		MemberVO one=null;
+		conn = JDBCUtil.getConnection();
 		try {
-			conn = JDBCUtil.getConnection();
-			stmt = conn.prepareStatement(BOARD_GET);
-			stmt.setInt(1, seq);
+			stmt = conn.prepareStatement(M_GET);
+			stmt.setInt(1, sid);
 			rs = stmt.executeQuery();
 			if(rs.next()) {
-				one.setSeq(rs.getInt("seq"));
-				one.setTitle(rs.getString("title"));
-				one.setWriter(rs.getString("writer"));
-				one.setContent(rs.getString("content"));
-				one.setCnt(rs.getInt("cnt"));
+				one=new MemberVO();
+				one.setSid(rs.getInt("sid"));
+				one.setUserid(rs.getString("userid"));
+				one.setUsername(rs.getString("username"));
+				one.setEmail(rs.getString("email"));
+				one.setPhoto(rs.getString("photo"));
+				one.setDetail(rs.getString("detail"));
+				one.setRegdate(rs.getDate("regdate"));
 			}
 			rs.close();
 		} catch (Exception e) {
@@ -92,21 +92,20 @@ public class BoardDAO {
 		return one;
 	}
 	
-	public List<MemberVO> getBoardList(){
-		List<MemberVO> list = new ArrayList<MemberVO>();
-		System.out.println("===> JDBC로 getBoardList() 기능 처리");
+	public List<MemberVO> getList(){
+		List<MemberVO> list = null;
+		conn = JDBCUtil.getConnection();
 		try {
-			conn = JDBCUtil.getConnection();
-			stmt = conn.prepareStatement(BOARD_LIST);
+			stmt = conn.prepareStatement(M_LIST);
 			rs = stmt.executeQuery();
+			list=new ArrayList<MemberVO>();
+			MemberVO one = new MemberVO();
 			while(rs.next()) {
-				MemberVO one = new MemberVO();
-				one.setSeq(rs.getInt("seq"));
-				one.setTitle(rs.getString("title"));
-				one.setWriter(rs.getString("writer"));
-				one.setContent(rs.getString("content"));
+				one.setSid(rs.getInt("sid"));
+				one.setUserid(rs.getString("userid"));
+				one.setUsername(rs.getString("username"));
+				one.setEmail(rs.getString("email"));
 				one.setRegdate(rs.getDate("regdate"));
-				one.setCnt(rs.getInt("cnt"));
 				list.add(one);
 			}
 			rs.close();
@@ -114,5 +113,22 @@ public class BoardDAO {
 			e.printStackTrace();
 		} 
 		return list;
+	}
+
+	public String getPhotoFilename(int sid) {
+		String filename=null;
+		conn = JDBCUtil.getConnection();
+		try {
+			stmt = conn.prepareStatement(M_GET);
+			stmt.setInt(1, sid);
+			rs = stmt.executeQuery();
+			if (rs.next()){
+				filename=rs.getString("photo");
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return filename;
 	}
 }

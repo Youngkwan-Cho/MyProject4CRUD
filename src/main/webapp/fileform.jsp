@@ -1,16 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: youngkwancho
-  Date: 2022/11/16
-  Time: 8:42 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <title>파일 업로드</title>
+    <link rel="stylesheet" href="member.css">
+</head>
+<body>
+<form action="fileupload.jsp" method="post" enctype="multipart/form-data">
+    <input type='file' name="photo">
+    <input type="submit" value="upload">
+</form>
+
+</body>
 </html>

@@ -11,6 +11,8 @@
     MemberVO u = upload.uploadPhoto(request);
 
     int i=memberDAO.insertMember(u);
+    String msg="데이터 추가 성공";
+    if(i==0) msg="[에러] 데이터 추가 실패!";
 
 %>
 
