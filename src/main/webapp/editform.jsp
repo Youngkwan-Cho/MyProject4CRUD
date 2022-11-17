@@ -31,15 +31,15 @@
 			<td><input type="text" name="username" value="${vo.getUsername()}"/></td>
 		</tr>
 		<tr>
+			<td>Email</td>
+			<td><input type="text" name="email" value="${vo.getEmail()}"/></td>
+		</tr>
+		<tr>
 			<td>Photo</td>
 			<td><input type="file" name="photo" value="${vo.getPhoto()}"/>
 				<c:if test="${vo.getPhoto() ne ''}"><br/><img src="${pageContext.request.contextPath}/upload/${vo.getPhoto()}" class="photo">
 				</c:if>
 			</td>
-		</tr>
-		<tr>
-			<td>Email</td>
-			<td><input type="text" name="email" value="${vo.getEmail()}"/></td>
 		</tr>
 		<tr>
 			<td>Detail</td>

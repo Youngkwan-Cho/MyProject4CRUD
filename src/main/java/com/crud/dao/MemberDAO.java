@@ -61,6 +61,7 @@ public class MemberDAO {
 			stmt.setString(2, vo.getEmail());
 			stmt.setString(3, vo.getPhoto());
 			stmt.setString(4, vo.getDetail());
+			stmt.setInt(5, vo.getSid());
 			result=stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
