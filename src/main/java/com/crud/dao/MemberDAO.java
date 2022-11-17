@@ -100,8 +100,8 @@ public class MemberDAO {
 			stmt = conn.prepareStatement(M_LIST);
 			rs = stmt.executeQuery();
 			list=new ArrayList<MemberVO>();
-			MemberVO one = new MemberVO();
 			while(rs.next()) {
+				MemberVO one = new MemberVO();
 				one.setSid(rs.getInt("sid"));
 				one.setUserid(rs.getString("userid"));
 				one.setUsername(rs.getString("username"));
