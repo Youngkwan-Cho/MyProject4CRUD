@@ -1,16 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: youngkwancho
-  Date: 2022/11/15
-  Time: 4:28 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">copyright 2022 WALAB. SSP1-3 21900706</span>
+    </div>
+</footer>

@@ -30,10 +30,9 @@ public class FileUpload {
             String sid = multipartRequest.getParameter("sid");
             if (sid!=null&&!sid.equals("")) one.setSid(Integer.parseInt(sid));
             one.setUserid(multipartRequest.getParameter("userid"));
-            one.setUsername(multipartRequest.getParameter("username"));
             one.setPassword(multipartRequest.getParameter("password"));
+            one.setUsername(multipartRequest.getParameter("username"));
             one.setEmail(multipartRequest.getParameter("email"));
-            one.setDetail(multipartRequest.getParameter("detail"));
 
             if (sid!=null&&!sid.equals("")) {
                 MemberDAO dao=new MemberDAO();
@@ -42,6 +41,7 @@ public class FileUpload {
                 else if (filename==null&&oldfilename!=null) filename=oldfilename;
             }
             one.setPhoto(filename);
+            one.setDetail(multipartRequest.getParameter("detail"));
         } catch (IOException e) {
            e.printStackTrace();
         }

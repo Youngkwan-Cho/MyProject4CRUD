@@ -3,7 +3,6 @@
 <%@page import="com.crud.member.FileUpload"%>
 <%@ page import="com.crud.dao.MemberDAO" %>
 <%@ page import="com.crud.bean.MemberVO" %>
-
 <%
     request.setCharacterEncoding("utf-8");
     MemberDAO memberDAO = new MemberDAO();
@@ -15,7 +14,6 @@
     if(i==0) msg="[에러] 데이터 추가 실패!";
 
 %>
-
 <script>
     alert('<%=msg%>');
     location.href = 'posts.jsp';

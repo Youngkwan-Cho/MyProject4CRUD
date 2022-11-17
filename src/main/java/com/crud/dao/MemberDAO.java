@@ -105,6 +105,7 @@ public class MemberDAO {
 				one.setSid(rs.getInt("sid"));
 				one.setUserid(rs.getString("userid"));
 				one.setUsername(rs.getString("username"));
+				one.setPhoto(rs.getString("photo"));
 				one.setEmail(rs.getString("email"));
 				one.setRegdate(rs.getDate("regdate"));
 				list.add(one);
