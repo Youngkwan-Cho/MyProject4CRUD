@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="com.crud.dao.MemberDAO, com.crud.bean.MemberVO"%>
+<%@page import="com.crud.dao.MemberDAO"%>
 <%@ page import="com.crud.member.FileUpload" %>
 <%
 	String sid = request.getParameter("id");
