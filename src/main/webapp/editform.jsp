@@ -49,7 +49,7 @@
 					<td>Photo</td>
 					<td><input type='file' name="photo" value="${vo.getPhoto()}"/>
 						<c:if test="${vo.getPhoto() ne ''}"><br/><img
-								src="${pageContext.request.contextPath}/upload/${vo.getPhoto()}" class="photo">
+								src="${pageContext.request.contextPath}/upload/${vo.getPhoto()}" class="photo" width="200" height="200">
 						</c:if>
 					</td>
 				</tr>
